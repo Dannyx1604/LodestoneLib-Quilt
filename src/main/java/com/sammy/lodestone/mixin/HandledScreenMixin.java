@@ -1,6 +1,7 @@
 package com.sammy.lodestone.mixin;
 
 import com.sammy.lodestone.handlers.screenparticle.ScreenParticleHandler;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.screen.ingame.HandledScreen;
 import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
@@ -18,12 +19,12 @@ final class HandledScreenMixin {
 	protected int y;
 
 	@Inject(at = @At("RETURN"), method = "render")
-	private void lodestone$beforeTooltipParticle(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+	private void lodestone$beforeTooltipParticle(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		ScreenParticleHandler.renderEarlyParticles();
 	}
 
 	@Inject(at = @At("HEAD"), method = "render")
-	private void lodestone$renderHotbarStart(MatrixStack matrices, int mouseX, int mouseY, float delta, CallbackInfo ci) {
+	private void lodestone$renderHotbarStart(GuiGraphics graphics, int mouseX, int mouseY, float delta, CallbackInfo ci) {
 		ScreenParticleHandler.renderingHotbar = true;
 		ScreenParticleHandler.x = this.x;
 		ScreenParticleHandler.y = this.y;

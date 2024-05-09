@@ -85,7 +85,7 @@ public class GenericScreenParticle extends SpriteBillboardScreenParticle {
 	}
 
 	public void pickColor(float colorCoeff) {
-		float h = MathHelper.lerpAngleDegrees(colorCoeff, 360f * hsv1[0], 360f * hsv2[0]) / 360f;
+		float h = MathHelper.lerp(colorCoeff, 360f * hsv1[0], 360f * hsv2[0]) / 360f;
 		float s = MathHelper.lerp(colorCoeff, hsv1[1], hsv2[1]);
 		float v = MathHelper.lerp(colorCoeff, hsv1[2], hsv2[2]);
 		int packed = Color.HSBtoRGB(h, s, v);

@@ -1,6 +1,6 @@
 plugins {
 	id 'maven-publish'
-	id 'org.quiltmc.loom' version '1.0.+'
+	id 'org.quiltmc.loom' version '1.6.7'
 }
 
 archivesBaseName = project.archives_base_name
@@ -16,6 +16,10 @@ repositories {
 	}
 	maven { url 'https://masa.dy.fi/maven' }
 	maven { url 'https://maven.terraformersmc.com' }
+	maven {
+		name = "TerraformersMC"
+		url = "https://maven.terraformersmc.com/"
+	}
 	maven { url = "https://jitpack.io" }
 	maven {
 		name = "Modrinth"
@@ -35,11 +39,11 @@ dependencies {
 	modImplementation "org.quiltmc.quilted-fabric-api:quilted-fabric-api:${project.quilted_fabric_api_version}-${project.minecraft_version}"
 	modImplementation include("io.github.ladysnake:satin:${project.satin_version}")
 	modImplementation include("maven.modrinth:midnightlib:${project.midnightlib_version}-fabric")
-	modCompileOnly ("dev.emi:emi:${project.emi_version}")
-	modRuntimeOnly ("dev.emi:emi:${project.emi_version}")
+	modCompileOnly ("dev.emi:emi-fabric:${project.emi_version}")
+	modRuntimeOnly ("dev.emi:emi-fabric:${project.emi_version}")
 
-	//ease of multiplayer testing & game control
-	//modRuntimeOnly "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_core_version}"
+	// ease of multiplayer testing & game control
+//	modRuntimeOnly "carpet:fabric-carpet:${project.minecraft_version}-${project.carpet_core_version}"
 
 }
 
@@ -104,4 +108,10 @@ publishing {
 wrapper {
 	gradleVersion = "7.3.3"
 	distributionType = Wrapper.DistributionType.ALL
+}
+
+// workaround for bug in quilt loom 1.3.3+
+project.configurations.configureEach {
+	exclude(group: "net.fabricmc", module: "fabric-loader")
+	exclude(group: "net.fabricmc.fabric-api")
 }
